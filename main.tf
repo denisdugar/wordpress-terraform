@@ -177,7 +177,7 @@ resource "aws_security_group" "bastion_sg" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = ["46.98.106.110/32"]
+    cidr_blocks      = ["46.98.107.16/32"]
   }
 
   egress {
@@ -248,13 +248,6 @@ resource "aws_security_group" "wordpress_sg" {
     security_groups  = [aws_security_group.bastion_sg.id]
   }
 
-    ingress {
-    from_port        = 443
-    to_port          = 443
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-
   egress {
     from_port        = 0
     to_port          = 0
@@ -294,6 +287,7 @@ resource "aws_db_instance" "wordpress_db" {
   password                   = local.db_cred.db_password
   parameter_group_name       = "default.mysql5.7"
   skip_final_snapshot        = true
+  backup_retention_period    = 3
   vpc_security_group_ids     = [aws_security_group.sg_rds.id]
   db_subnet_group_name       = aws_db_subnet_group.test_db_subnet_group.name
 
