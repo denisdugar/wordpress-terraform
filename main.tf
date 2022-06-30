@@ -1,4 +1,4 @@
-terraform {
+/*terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -409,3 +409,4 @@ resource "aws_efs_file_system" "wordpress_efs" {
     Name = "wordpress_efs"
   }
 }
+*/
